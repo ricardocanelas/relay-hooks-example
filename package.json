@@ -1,17 +1,23 @@
 {
-  "name": "entria-temp",
+  "name": "relay-hooks-example",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "dotenv": "^8.2.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0"
+    "react-relay": "^7.0.0",
+    "react-scripts": "3.2.0",
+    "relay-hooks": "1.*",
+    "relay-runtime": "^7.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "relay": "yarn run relay-compiler --schema schema/schema.graphql --src ./src/ $@",
+    "update-schema": "node update-schema.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,5 +33,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-plugin-relay": "^7.0.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "graphql": "^14.5.8",
+    "prettier": "^1.18.2",
+    "relay-compiler": "^7.0.0"
   }
 }
