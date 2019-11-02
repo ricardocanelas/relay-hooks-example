@@ -1,6 +1,8 @@
 
 Using [relay-experimental](https://relay.dev/docs/en/experimental/api-reference).
 
+![](screencast.gif)
+
 # Setup
 
 1. Install the app's dependencies:
