@@ -4,9 +4,8 @@ import { RelayEnvironmentProvider } from 'react-relay/hooks'
 import RelayEnvironment from './relay/Environment'
 import App from './App'
 
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <RelayEnvironmentProvider environment={RelayEnvironment}>
     <App />
-  </RelayEnvironmentProvider>,
-  document.getElementById('root')
+  </RelayEnvironmentProvider>
 )

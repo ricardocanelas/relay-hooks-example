@@ -3,12 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "dotenv": "^8.2.0",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
-    "react-relay": "^7.0.0",
+    "react": "^0.0.0-experimental-f6b8d31a7",
+    "react-dom": "^0.0.0-experimental-f6b8d31a7",
+    "react-relay": "^0.0.0-experimental-a1a40b68",
     "react-scripts": "3.2.0",
-    "relay-hooks": "1.*",
     "relay-runtime": "^7.0.0"
   },
   "scripts": {
@@ -16,7 +14,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "relay": "yarn run relay-compiler --schema schema/schema.graphql --src ./src/ $@",
+    "relay": "relay-compiler --src ./src --schema ./schema/schema.graphql",
     "update-schema": "node update-schema.js"
   },
   "eslintConfig": {
@@ -36,6 +34,7 @@
   },
   "devDependencies": {
     "babel-plugin-relay": "^7.0.0",
+    "dotenv": "^8.2.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
     "graphql": "^14.5.8",

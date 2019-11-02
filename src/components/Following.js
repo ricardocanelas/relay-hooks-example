@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import graphql from 'babel-plugin-relay/macro'
-import { usePagination } from 'relay-hooks'
+import { usePaginationFragment } from 'react-relay/hooks'
 
 const fragmentDef = graphql`
   fragment Following_user on User
-    @argumentDefinitions(count: { type: "Int", defaultValue: 10 }, cursor: { type: "String" }) {
+    @argumentDefinitions(count: { type: "Int", defaultValue: 10 }, cursor: { type: "String" })
+    @refetchable(queryName: "FollowingPaginationQuery") {
     following(first: $count, after: $cursor) @connection(key: "Following_following") {
       edges {
         node {
@@ -17,42 +18,17 @@ const fragmentDef = graphql`
   }
 `
 
-const connectionConfig = {
-  getVariables(props, { count, cursor }, fragmentVariables) {
-    return {
-      count,
-      cursor,
-      login: fragmentVariables.login,
-    }
-  },
-
-  query: graphql`
-    # Pagination query to be fetched upon calling 'loadMore'.
-    # Notice that we re-use our fragment, and the shape of this query matches our fragment spec.
-    query FollowingPaginationQuery($count: Int!, $cursor: String, $login: String!) {
-      user(login: $login) {
-        ...Following_user @arguments(count: $count, cursor: $cursor)
-      }
-    }
-  `,
-}
-
 const Following = ({ fragmentRef }) => {
-  const [data, { isLoading, hasMore, loadMore }] = usePagination(fragmentDef, fragmentRef)
+  const { data, loadNext, isLoadingNext } = usePaginationFragment(fragmentDef, fragmentRef)
 
-  const handleLoadMore = () => {
-    if (!hasMore() || isLoading()) {
+  // Callback to paginate the issues list
+  const loadMore = useCallback(() => {
+    // Don't fetch again if we're already loading the next page
+    if (isLoadingNext) {
       return
     }
-
-    loadMore(
-      connectionConfig,
-      10, // Fetch the next 10 following-user items
-      error => {
-        console.log(error)
-      }
-    )
-  }
+    loadNext(10)
+  }, [isLoadingNext, loadNext])
 
   return (
     <div>
@@ -63,7 +39,7 @@ const Following = ({ fragmentRef }) => {
         </li>
       ))}
       <hr />
-      <button onClick={handleLoadMore}>Load More</button>
+      <button onClick={loadMore}>Load More</button>
     </div>
   )
 }
