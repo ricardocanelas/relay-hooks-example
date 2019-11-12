@@ -18,7 +18,7 @@ const Profile = ({ login }) => {
 
   return (
     <div>
-      <h3>{data.user.name}</h3>
+      <h2>{data.user.name}</h2>
       <Following fragmentRef={data.user} />
     </div>
   )
