@@ -27,6 +27,12 @@ const fetchRelay = async (params, variables) => {
   // Get the response as JSON
   const json = await response.json()
 
+  // Debugging
+  console.log('# FetchRelay')
+  console.log(`- query ${params.name} with ${JSON.stringify(variables)}`)
+  console.log('- return', json)
+  console.log('')
+
   // GraphQL returns exceptions (for example, a missing required variable) in the "errors"
   // property of the response. If any exceptions occurred when processing the request,
   // throw an error to indicate to the developer what went wrong.
